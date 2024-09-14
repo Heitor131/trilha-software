@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas - DOM Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        ul li.completed {
+            text-decoration: line-through;
+            background: #d1ffd1;
+        }
+
+        .btn {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Lista de Tarefas</h2>
+        <input type="text" id="taskInput" placeholder="Adicionar nova tarefa">
+        <button class="btn" id="addTaskBtn">Adicionar</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // Selecionando elementos DOM
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+
+        // Função para adicionar uma nova tarefa
+        function addTask() {
+            const taskText = taskInput.value.trim(); // Remove espaços
+
+            if (taskText === '') {
+                alert('Por favor, adicione uma tarefa!');
+                return;
+            }
+
+            // Criar elemento de lista (li)
+            const li = document.createElement('li');
+            li.textContent = taskText;
+
+            // Criar botão para remover a tarefa
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'Remover';
+            removeBtn.classList.add('btn', 'btn-danger');
+            removeBtn.addEventListener('click', () => {
+                taskList.removeChild(li);
+            });
+
+            // Adicionar evento para marcar como concluída
+            li.addEventListener('click', () => {
+                li.classList.toggle('completed');
+            });
+
+            // Anexar o botão ao item de lista
+            li.appendChild(removeBtn);
+
+            // Adicionar o item de lista ao elemento ul
+            taskList.appendChild(li);
+
+            // Limpar o campo de texto
+            taskInput.value = '';
+        }
+
+        // Adicionar evento ao botão de adicionar tarefa
+        addTaskBtn.addEventListener('click', addTask);
+
+        // Permitir adicionar tarefa pressionando Enter
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
