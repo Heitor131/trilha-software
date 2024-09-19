@@ -1,5 +1,5 @@
     const promessa = new Promise((resolve,reject) => {
-        let sucesso = false;
+        let sucesso = true;
         setTimeout(() =>{
             if(sucesso)
                 resolve("Sucesso")
@@ -19,4 +19,8 @@
             console.log("Operação finalizada")
         })
 
-    
+    //=========ASYNC/ AWAIT=======================
+    async function executarOperacao(){ // se tiver o async o awati precisam ser juntos 
+            let resultado = await promessa; // Esperar a Promise ser resolvida
+            console.log("Resultado com async/await" + resultado);
+    }
